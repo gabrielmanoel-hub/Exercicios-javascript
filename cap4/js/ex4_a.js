@@ -1,22 +1,3 @@
-// const fruto = 'Maça'
-// const num = 2
-
-
-// let resposta = ''
-
-// for(let i = 0; i < num; i++) {
-//     resposta+= fruto + ' '
-// }
-// let _resposta = resposta.replaceAll(' ', ' * ')
-// console.log(_resposta.slice(0, -2))
-
-/*
-inFruta
-inNumero
-btnRepetirFruta
-outFruta
-*/
-
 const inNumero = document.getElementById('inNumero')
 const inFruta = document.getElementById("inFruta")
 const outFruta = document.getElementById('outFruta')
@@ -37,10 +18,6 @@ btnRepetirFruta.addEventListener('click', () => {
         console.log('True')
     }
 
-    // for(let i = 0; i < num; i++) {
-    //     resposta+= fruto + ' '
-    // }
-    // let _resposta = resposta.replaceAll(' ', ' * ')
-    // console.log(_resposta.slice(0, -2))
+   
 
 })
