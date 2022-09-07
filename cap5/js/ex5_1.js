@@ -9,7 +9,7 @@ btnAdicionar.addEventListener('click', () => {
     const _paciente = inPaciente.value
     if(!_paciente.match(validacao)) {
         erro.style.color = 'red'
-        erro.innerText = 'Escreva nome e sobrenome ou so primeiro nome EX: Pedro Miguel'
+        erro.innerText = 'Escreva nome e sobrenome ou so o primeiro nome EX: Pedro Miguel ou Pedro'
     }else {
         paciente.push(_paciente)
         erro.innerText = ''
