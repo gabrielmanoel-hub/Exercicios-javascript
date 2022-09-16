@@ -1,49 +1,72 @@
-const inNumero = document.getElementById('inNumero')
-const outErro = document.getElementById('outErro')
+let outNumeroDeErros = document.getElementById('outNumeroDeErros')
+const numerosErrados = document.getElementById('numerosErrados')
 const outChances = document.getElementById('outChances')
-const outDica = document.getElementById('outDica')
-const outNumeroDeErros = document.getElementById('outNumeroDeErros')
-const numerosAleatorios = []
 
-inNumero.addEventListener('keyup', ({key})=>{
-    if(key === "Enter") {
-        validaInput()
-    }
-})
-function apostar() {
-    validaInput()
-}
+let counErros = 0
+outNumeroDeErros.textContent = counErros
 
-const validaInput = () => {
-    const NumInNumero = Number(inNumero.value)  
-    const _inNumero = inNumero.value
-    if(!_inNumero.match(/1-9/g) && (NumInNumero  < 1 || NumInNumero  > 100 ) || /([A-Za-zÁ-ú])/g.test(_inNumero)){
+let chances = 6
+outChances.textContent = chances
+
+let sorteado = Math.floor(Math.random() * 100) + 1;
+let numErros = []
+let apostas = []
+function jogar(){
+    const inNumero = document.getElementById('inNumero')
+    const _inNumero = Number(inNumero.value)
+    const outErro = document.getElementById('outErro')
+    
+    if(!/[1-9]/g.test(inNumero.value) || _inNumero > 100){
         outErro.style.color = 'red'
-        outErro.innerText = 'Apenas numeros entre 1 e 100'
-    } else {
-        outErro.innerText = ''
-        numerosAleatorios.shift()
-        numerosAleatorios.push(Math.floor(Math.random() * 2) + 1)
-        ErrosEChances()
-    } 
-}
-
-
-let countErros = 0
-let countChances = 6
-outChances.textContent = countChances
-outNumeroDeErros.textContent = countErros
-const ErrosEChances = () => {
-    countChances--
-    outChances.textContent = countChances
-    if(numerosAleatorios[0] == inNumero.value){
-        console.log('ganhou')
-    }else {
-        countErros++
-        outNumeroDeErros.textContent = countErros
-        console.log('Perdeu')
+        outErro.textContent = "Preencha com um número"
+        return
     }
-    console.log(numerosAleatorios[0])
+    
+    const outDica = document.getElementById('outDica')
+    
+    if(_inNumero === sorteado) {
+        apostar.disabled = true
+        alert('Parabens!! Acertou.')
+    }
+
+    if(_inNumero !== sorteado) {
+        numErros.push(_inNumero)
+        const _numErros = [...new Set(numErros)]
+        counErros++
+        outNumeroDeErros.textContent =`${counErros} ( ${_numErros.join(', ')} )` 
+
+        const menor = 'Tente um número Menor'
+        const maior = 'Tente um número Maior'
+        outDica.style.fontSize = '14px'
+        outDica.style.color = 'red'
+        outDica.textContent = _inNumero > sorteado ? menor : maior
+    }
+    
+    chances--
+    outChances.textContent = chances
+    if(chances < 6){
+        // chances = 6
+        if(apostas.indexOf(_inNumero) !== -1) {
+            alert('Número ' + _inNumero + ' ja existe')
+            inNumero.value = ''
+        } 
+        function fim () {
+            apostar.disabled = true
+            chances = 6
+            setInterval(()=>{
+                alert('Fim de partida')
+            }, 1000)
+            document.location.reload(true)
+        }
+        chances === 0 ? fim() : ''
+        apostas.push(_inNumero)
+    }
+    outErro.textContent = ''
+    inNumero.value = ''
 }
-
-
+const apostar = document.getElementById('apostar')
+apostar.addEventListener('click', jogar)
+const jogarNovamente = document.getElementById('jogarNovamente')
+jogarNovamente.addEventListener('click', () =>{
+    document.location.reload(true)
+})
