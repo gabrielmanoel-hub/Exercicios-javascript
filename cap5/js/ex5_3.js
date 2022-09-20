@@ -8,7 +8,7 @@ const carros = [
 ]
 
 //Filtrar carros por preço
-const filtroPorPreco = Number(prompt('Até que valor deseja pagar'))
+const filtroPorPreco = 68000
 let listaDeCarros = ''
 let listaDeCarrosFiltrada = ''
 for(let i = 0; i < carros.length; i++){
@@ -27,5 +27,3 @@ if(listaDeCarros.length === 0) {
 }
 console.log(listaDeCarrosFiltrada)
 
-// Pesquisar erro git ===> Unable to read current working directory: 
-//https://www.google.com/search?q=Unable+to+read+current+working+directory%3A&oq=Unable+to+read+current+working+directory%3A&aqs=chrome..69i57j0i512j0i22i30l8.986j0j7&sourceid=chrome&ie=UTF-8
